@@ -1,0 +1,7 @@
+Programul realizeaza rezolvarea temei 2 de la PCLP1, seria CB, din ianuarie 2024
+
+taskurile 1-6 sunt rezolvate prin calculul impartirii al UNIX timestamp la multiple constante
+
+taskul 7 este realizat prin creearea unei masti si salvarea datelor generate cu ajutorul acesteia intr-un struct TDate
+
+taskul 8 si 9 sunt, la momentul scrierii, rezolvate incomplet
