@@ -4,24 +4,31 @@
 #include "timelib.h"
 #define five 5
 
+int cmpfunc(const void * a, const void * b) {
+    return ( *(int*)a - *(int*)b );
+}
+
 int main() {
+    /*
     // TO DO Task 9
 
     int T = 0, P = 0;
+    // T = nr timezones
+
     scanf("%d", &T);
-    char ** tzNames = malloc(T * sizeof(char *));
-    int * tzVal = malloc(T * sizeof(int));
+    // char ** tzNames = malloc(T * sizeof(char *));
+    // int * tzVal = malloc(T * sizeof(int));
+    TTimezone * timezones = malloc (T * sizeof(TTimezone));
     for (int i = 0; i < T; i++) {
-        tzNames[i] = malloc(4 * sizeof(char));
-        scanf("%s %d", tzNames[i], &tzVal[i]);
+        timezones[i].name = malloc(five * sizeof(char));
+        scanf("%s %d", timezones[i].name, &timezones[i].utc_hour_difference);
     }
     scanf("%d", &P);
 
     typedef struct {
         char * name;
-        char * tz;
         int freeTime;
-        TDate * date;
+        TDateTimeTZ * interval;
         int * nrHours;
     } PList;
 
@@ -33,16 +40,24 @@ int main() {
         PNames = malloc(five * 2 * sizeof(char));
         people[i].name = malloc(five * 2 * sizeof(char));
         people[i].tz = malloc(five * sizeof(char));
-        scanf("%s%s%s%d", PNames[i], people[i].name, people[i].tz, &people[i].freeTime);
-        people[i].date = malloc(people[i].freeTime * sizeof(TDate));
-        people[i].nrHours = malloc(people[i].freeTime * sizeof(TDate));
+        scanf("%s%s%d", people[i].name, people[i].interval.tz->name, &people[i].freeTime);
+        people[i].interval = malloc(people[i].freeTime * sizeof(TDateTimeTZ));
+        people[i].nrHours = malloc(people[i].freeTime * sizeof(int));
+        for (int j = 0; j < people[i].freeTime; j++) {
+            scanf("%d%d%d%d", people[i].interval[j].date.year, people[i].interval[j].date.month, people[i].interval[j].date.day, people[i].nrHours);
+        }
     }
-    int F = 0, duration = 0;;
+    int F = 0, duration = 0;
+    // F = nr minim de persoane
     scanf("%d%d", &F, &duration);
+
+    for (int i = 0; i < P; i ++) {
+        strcpy(PNames[i], people[i]->name);
+    }
 
     for (int i = 0; i < P-1; i++) {
         for (int j = 0; j < P; j++) {
-            if (strcmp(PNames[i+1], PNames[i])) {
+            if (strcmp(PNames[i+1], PNames[i]) < 0) {
                 tempName = PNames[i+1];
                 PNames[i+1] = PNames[i];
                 PNames[i] = tempName;
@@ -55,7 +70,6 @@ int main() {
     }
 
 
-
-
+*/
     return 0;
 }
