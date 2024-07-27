@@ -15,4 +15,4 @@ planner: planner.c timelib.c
 	gcc planner.c timelib.c $(CFLAGS) -o planner
 
 clean:
-	rm -f bitpacking planner
+	rm -f bitpacking planner result

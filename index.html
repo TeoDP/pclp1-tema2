@@ -1,0 +1,912 @@
+
+    
+
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>
+    Tema 2 - Unix Timestamps    [CS Open CourseWare]
+  </title>
+
+  <meta name="generator" content="DokuWiki"/>
+<meta name="robots" content="index,follow"/>
+<meta name="date" content="2024-01-15T21:49:29+0200"/>
+<meta name="keywords" content="programare,teme_2023,tema2_2023_cbd"/>
+<link rel="search" type="application/opensearchdescription+xml" href="https://ocw.cs.pub.ro/courses/lib/exe/opensearch.php" title="CS Open CourseWare"/>
+<link rel="start" href="https://ocw.cs.pub.ro/courses/"/>
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="https://ocw.cs.pub.ro/courses/feed.php"/>
+<link rel="alternate" type="application/rss+xml" title="Current Namespace" href="https://ocw.cs.pub.ro/courses/feed.php?mode=list&amp;ns=programare:teme_2023"/>
+<link rel="alternate" type="text/html" title="Plain HTML" href="https://ocw.cs.pub.ro/courses/_export/xhtml/programare/teme_2023/tema2_2023_cbd"/>
+<link rel="canonical" href="http://ocw.cs.pub.ro/courses/programare/teme_2023/tema2_2023_cbd"/>
+<link rel="stylesheet" type="text/css" href="https://ocw.cs.pub.ro/courses/lib/exe/css.php?t=arctic&amp;tseed=1720861233"/>
+<script type="text/javascript">/*<![CDATA[*/var NS='programare:teme_2023';var JSINFO = {"id":"programare:teme_2023:tema2_2023_cbd","namespace":"programare:teme_2023","isadmin":0,"isauth":0};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="https://ocw.cs.pub.ro/courses/lib/exe/js.php?tseed=1720861233"></script>
+<script type="text/x-mathjax-config">/*<![CDATA[*/MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+        displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+        processEscapes: true
+    }
+});
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript">/*<![CDATA[*/
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		  
+/*!]]>*/</script>
+<script type="text/javascript">/*<![CDATA[*/
+var pageTracker = _gat._getTracker("UA-38383934-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+		  
+/*!]]>*/</script>
+
+  <link rel="shortcut icon" href="https://ocw.cs.pub.ro/courses/lib/tpl/arctic/images/favicon.ico" />
+
+  
+</head>
+<body>
+<div id="wrapper" class='show'>
+  <div class="dokuwiki">
+              <div class="left_page">
+          
+<h1 class="sectionedit1" id="tema_2_-_unix_timestamps">Tema 2 - Unix Timestamps</h1>
+<div class="level1">
+
+</div>
+
+<h3 class="sectionedit2" id="changelog">Changelog:</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> 23 Dec 2023 20:35: update schelet de cod typos</div>
+</li>
+<li class="level1"><div class="li"> 13 Ian 2023 23:55: adaugat teste pt taskurile 1-8 <a href="https://ocw.cs.pub.ro/courses/_media/programare/teme_2023/t2_tests_1-to-8.zip" class="media mediafile mf_zip" title="programare:teme_2023:t2_tests_1-to-8.zip (48.1 KB)">t2_tests_1-to-8.zip</a></div>
+</li>
+<li class="level1"><div class="li"> 14 Ian 2023 00:55: corectat testele pt taskul 8</div>
+</li>
+<li class="level1"><div class="li"> 15 Ian 2024 02:56: adaugat checker <a href="https://ocw.cs.pub.ro/courses/_media/programare/teme_2023/t2_checker.zip" class="media mediafile mf_zip" title="programare:teme_2023:t2_checker.zip (74.2 KB)">t2_checker.zip</a> (thanks Cosmin &amp; Mihnea &amp; Teo pentru debugging la checker noaptea ca hotii)</div>
+</li>
+<li class="level1"><div class="li"> 15 Ian 2024 19:57: update checker + reparat teste task 9</div>
+</li>
+<li class="level1"><div class="li"> 15 Ian 2024 21:49: update teste sa fie timezone-urile de max 4 caractere</div>
+</li>
+</ul>
+
+</div>
+
+<h3 class="sectionedit3" id="responsabili">Responsabili:</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> Alin Popa</div>
+</li>
+</ul>
+
+<p>
+Termen de predare:
+</p>
+<ul>
+<li class="level1"><div class="li"> Deadline soft: <strong>Joi 11 Ianuarie 2024, 23:55</strong></div>
+</li>
+<li class="level1"><div class="li"> Deadline hard: <strong>Duminica 14 Ianuarie 2024, 23:55</strong></div>
+</li>
+</ul>
+
+<p>
+Pentru fiecare zi (24 de ore) de întârziere, se vor scădea 10 puncte din nota acordată, până la atingerea deadline-ului hard.
+</p>
+
+</div>
+
+<h3 class="sectionedit4" id="intrebari">Întrebări</h3>
+<div class="level3">
+
+<p>
+Dacă aveți nelămuriri, puteți să ne contactați pe forumul dedicat <a href="https://curs.upb.ro/2023/mod/forum/view.php?id=96053" class="urlextern" title="https://curs.upb.ro/2023/mod/forum/view.php?id=96053"  rel="nofollow">temei de casă nr. 2</a> sau pe <a href="https://teams.microsoft.com/l/channel/19%3A894fd875001546b28dec5f997c2097b5%40thread.tacv2/Tema%202?groupId=1f7c7112-0ea2-4f0b-9131-d5c29590d62c&amp;tenantId=2d8cc8ba-8dda-4334-9e5c-fac2092e9bac" class="urlextern" title="https://teams.microsoft.com/l/channel/19%3A894fd875001546b28dec5f997c2097b5%40thread.tacv2/Tema%202?groupId=1f7c7112-0ea2-4f0b-9131-d5c29590d62c&amp;tenantId=2d8cc8ba-8dda-4334-9e5c-fac2092e9bac"  rel="nofollow">canalul Temei 2</a>.<br/>
+
+Nu se acceptă întrebări în ultimele 24 de ore înainte de deadline.
+</p>
+
+<p>
+<p><div class="notewarning">
+Atenție:
+</p>
+<ul>
+<li class="level1"><div class="li"> Citiți cu atenție tot enunțul temei.</div>
+</li>
+</ul>
+
+<p>
+
+</div></p>
+</p>
+
+</div>
+
+<h2 class="sectionedit5" id="intro_unix_timestamps">Intro Unix Timestamps</h2>
+<div class="level2">
+
+<p>
+Ne propunem să construim un sistem care simulează <a href="https://www.epochconverter.com" class="urlextern" title="https://www.epochconverter.com"  rel="nofollow">Epoch Converter</a>.
+</p>
+
+<p>
+Un Unix Timestamp este un mod standardizat de reprezentare a unui moment în timp, foarte folosit în multe aplicații, framework-uri, și sisteme de operare. Un Unix Timestamp este definit ca numărul de secunde care au trecut de la 1 ianuarie 1970, ora 00:00:00 (in timezone-ul UTC, fostul GMT, numit popular și “ora Angliei”).
+</p>
+
+<p>
+<p><div class="noteclassic">
+Exemplu:
+</p>
+<ul>
+<li class="level1"><div class="li"> Timestamp-ul <code>0</code> corespunde datei <code>1 ianuarie 1970, ora 00:00:00</code></div>
+</li>
+<li class="level1"><div class="li"> Timestamp-ul <code>3659</code> corespunde datei <code>1 ianuarie 1970, ora 01:00:59</code></div>
+</li>
+<li class="level1"><div class="li"> Timestamp-ul <code>1703201916</code> corespunde datei <code>21 decembrie 2023, ora 23:38:36</code></div>
+</li>
+</ul>
+
+<p>
+
+</div></p>
+</p>
+
+<p>
+<p><div class="notewarning">
+Pentru această temă nu aveți voie să folosiți funcții (din time.h sau din biblioteci 3rd party) care convertesc sau parsează date și timestamp-uri în mod automat.
+
+</div></p>
+</p>
+
+</div>
+
+<h2 class="sectionedit6" id="schelet_de_cod">Schelet de cod</h2>
+<div class="level2">
+
+<p>
+Pentru această temă trebuie să porniți de la scheletul de cod de aici: <a href="https://ocw.cs.pub.ro/courses/_media/programare/teme_2023/tema2_schelet.zip" class="media mediafile mf_zip" title="programare:teme_2023:tema2_schelet.zip (1.8 KB)">tema2_schelet.zip</a>.
+</p>
+
+<p>
+<p><div class="noteimportant">
+Atenție! <strong>Nu</strong> aveți voie să:
+</p>
+<ul>
+<li class="level1"><div class="li"> redenumiți fișierele temei (timelib.c, bitpacking.c, planner.c)</div>
+</li>
+<li class="level1"><div class="li"> schimbați numărul, tipul, sau ordinea parametrilor funcțiilor din timelib.c și timelib.h</div>
+</li>
+<li class="level1"><div class="li"> schimbați sau redenumiți comenzile sau regulile din Makefile</div>
+</li>
+</ul>
+
+<p>
+
+</div></p>
+</p>
+
+</div>
+
+<h2 class="sectionedit7" id="cerinta">Cerință</h2>
+<div class="level2">
+
+</div>
+
+<h3 class="sectionedit8" id="partea_a_-_datetime_parsing">Partea A - DateTime Parsing</h3>
+<div class="level3">
+
+</div>
+
+<h4 id="task1_5p_-_convert_unix_timestamp_to_time">Task1 (5p) - Convert Unix Timestamp to Time</h4>
+<div class="level4">
+
+<p>
+Implementați în fișierul <code>timelib.c</code> funcția:
+</p>
+<pre class="code">TTime convertUnixTimestampToTime(unsigned int timestamp)</pre>
+
+<p>
+Funcția trebuie să returneze ora, minutul și secunda corespunzatoare timestamp-ului primit, sub forma unei structuri TTime:
+</p>
+<pre class="code">typedef struct {
+    unsigned char hour;
+    unsigned char min;
+    unsigned char sec;
+} TTime</pre>
+
+<p>
+<p><div class="noteclassic">
+Exemple de rulare:
+</p>
+<pre class="code">timestamp=0 =&gt; hour=0; min=0; sec=0
+timestamp=3659 =&gt; hour=1; min=0; sec=59
+timestamp=1703201916 =&gt; hour=23; min=38; sec=36</pre>
+
+<p>
+
+</div></p>
+</p>
+
+<p>
+<p><div class="noteclassic">
+<code>Hour</code> ia valori între 0 și 23; <code>min</code> ia valori între 0 și 59; <code>sec</code> ia valori între 0 și 59. 
+
+</div></p>
+</p>
+
+</div>
+
+<h4 id="task2_5p_-_convert_unix_timestamp_to_date_1">Task2 (5p) - Convert Unix Timestamp to Date (1)</h4>
+<div class="level4">
+
+<p>
+Implementați în fișierul <code>timelib.c</code> funcția:
+</p>
+<pre class="code">TDate convertUnixTimestampToDateWithoutLeapYears(unsigned int timestamp)</pre>
+
+<p>
+Funcția trebuie să returneze ziua, luna și anul corespunzătoare timestamp-ului primit, sub forma unei structuri TDate:
+</p>
+<pre class="code">typedef struct {
+    unsigned char day;
+    unsigned char month;
+    unsigned int year;
+} TDate</pre>
+
+<p>
+<p><div class="noteclassic">
+Exemple de rulare:
+</p>
+<pre class="code">timestamp=0 =&gt; day=1; month=1; year=1970
+timestamp=3659 =&gt; day=1; month=1; year=1970
+timestamp=1703201916 =&gt; day=3; month=1; year=2024</pre>
+
+<p>
+
+</div></p>
+</p>
+
+<p>
+<p><div class="noteclassic">
+<code>Day</code> ia valori între 1 și 31; <code>month</code> ia valori între 1 și 12; <code>year</code> ia valori de la 1970 în sus. 
+
+</div></p>
+</p>
+
+<p>
+<p><div class="noteimportant">
+Pentru acest task, anii bisecți trebuie ignorați!
+
+</div></p>
+</p>
+
+</div>
+
+<h4 id="task3_5p_-_convert_unix_timestamp_to_date_2">Task3 (5p) - Convert Unix Timestamp to Date (2)</h4>
+<div class="level4">
+
+<p>
+Implementați în fișierul <code>timelib.c</code> funcția:
+</p>
+<pre class="code">TDate convertUnixTimestampToDate(unsigned int timestamp)</pre>
+
+<p>
+Funcția trebuie să returneze ziua, luna și anul corespunzătoare timestamp-ului primit, sub forma unei structuri TDate ca la taskul anterior, însă luând în considerare anii bisecți. Un an bisect este un an cu 366 de zile (luna februarie are 29 de zile în loc de 28). Anii bisecți sunt toți anii divizibili cu 4 (e.g. 2004, 2008, 2012) cu excepția anilor care sunt multipli de 100 dar nu și multipli de 400 (exemplu: anii 2000 și 2400 sunt bisecți, dar anii 2100, 2200, 2300 nu sunt).
+</p>
+
+<p>
+<p><div class="noteclassic">
+Exemple de rulare:
+</p>
+<pre class="code">timestamp=0 =&gt; day=1; month=1; year=1970
+timestamp=3659 =&gt; day=1; month=1; year=1970
+timestamp=1703201916 =&gt; day=21; month=12; year=2023</pre>
+
+<p>
+
+</div></p>
+</p>
+
+<p>
+<p><div class="noteimportant">
+Pentru task-urile de la 3 în sus, anii bisecți trebuie luați în considerare!
+
+</div></p>
+</p>
+
+</div>
+
+<h4 id="task4_5p_-_unix_timestamp_with_timezones">Task4 (5p) - Unix Timestamp with Timezones</h4>
+<div class="level4">
+
+<p>
+Implementați în fișierul <code>timelib.c</code> funcția:
+</p>
+<pre class="code">TDateTimeTZ convertUnixTimestampToDateTimeTZ(unsigned int timestamp, TTimezone *timezones, int timezone_index)</pre>
+
+<p>
+Funcția primește un Unix Timestamp, un vector de timezone-uri, și un index care definește timezone-ul din vector ce trebuie folosit.
+Un timezone (fus orar) este reprezentat de o structură TTimezone, cu următoarele componente:
+</p>
+<ul>
+<li class="level1"><div class="li"> name: numele timezone-ului (e.g.: “UTC”, “GMT”, “EET”, “EST”)</div>
+</li>
+<li class="level1"><div class="li"> utc_hour_difference: diferența în număr de ore față de timezone-ul UTC (în care se consideră că este orice Unix Timestamp).</div>
+</li>
+</ul>
+<pre class="code">typedef struct {
+    char name[5];
+    signed char utc_hour_difference;
+} TTimezone</pre>
+
+<p>
+Funcția trebuie să returneze o structură TDateTimeTZ, cu următoarele componente:
+</p>
+<ul>
+<li class="level1"><div class="li"> date: data corespunzătoare timestamp-ului primit</div>
+</li>
+<li class="level1"><div class="li"> time: ora, minutul, secunda corespunzătoare timestamp-ului primit</div>
+</li>
+<li class="level1"><div class="li"> tz: pointer la timezone-ul corespunzător din vectorul de timezone-uri</div>
+</li>
+</ul>
+<pre class="code">typedef struct {
+    TDate date;
+    TTime time;
+    TTimezone *tz;
+} TDateTimeTZ</pre>
+
+<p>
+Pentru această funcție, la conversia din Unix Timestamp în formatul Date+Time, trebuie luată în considerare diferența de timp impusă de timezone. Spre exemplu, timestamp-ul <code>1703201916</code> corespunde datei <code>21 decembrie 2023, ora 23:38:36</code> dacă acesta este considerat în timestamp-ul UTC (echivalent cu GMT), pentru care <code>utc_hour_difference</code> este 0. Însă același timestamp, într-un timezone în care <code>utc_hour_difference</code> este 2 (spre exemplu, EET) va corespunde datei <code>22 decembrie 2023, ora 01:38:36</code> (2 ore mai târziu). Același timestamp, într-un timezone în care <code>utc_hour_difference</code> este -5, va corespunde datei <code>21 decembrie 2023, ora 18:38:36</code>.
+</p>
+
+<p>
+<p><div class="noteclassic">
+Fie următorul vector de timezone-uri: <code>[(“UTC”, 0); (“EET”, 2); (“PST”, -8)]</code>
+</p>
+
+<p>
+Exemple de rulare:
+</p>
+<pre class="code">timestamp=1703201916, timezone_index=0 =&gt; 21-12-2023 23:38:36
+timestamp=1703201916, timezone_index=1 =&gt; 22-12-2023 01:38:36
+timestamp=1703201916, timezone_index=2 =&gt; 21-12-2023 15:38:36</pre>
+
+<p>
+
+</div></p>
+</p>
+
+<p>
+<p><div class="noteclassic">
+Se garantează pentru toate timezone-urile că: <code>-13 &lt; utc_hour_difference &lt; 15</code>
+
+</div></p>
+</p>
+
+<p>
+<p><div class="noteclassic">
+Timestamp-urile de la taskurile 1-3 se consideră în timezone-ul standard UTC. Practic, prin conversia unui Unix Timestamp la formatul dată+timp așa cum am făcut la taskurile precedente, obținem data și ora corespunzătoare timezone-ului UTC+0. Schimbarea la acest task este că trebuie să luăm în considerare diferența cu un anumit număr de ore (în plus sau în minus) dată de timezone-ul cerut.
+
+</div></p>
+</p>
+
+</div>
+
+<h4 id="task5_5p_-_datetimetz_back_to_unix_timestamp">Task5 (5p) - DateTimeTz back to Unix Timestamp</h4>
+<div class="level4">
+
+<p>
+Implementați în fișierul <code>timelib.c</code> funcția:
+</p>
+<pre class="code">unsigned int convertDateTimeTZToUnixTimestamp(TDateTimeTZ)</pre>
+
+<p>
+Funcția primește un TDateTimeTZ așa cum a fost definit mai sus și execută operația inversă, calculând Unix Timestamp-ul corespunzător.
+<p><div class="noteimportant">
+Unix Timestamp-ul trebuie calculat așa cum este el în timezone-ul UTC! Spre exemplu, <code>22 decembrie 2023, ora 01:38:36</code> în timezone EET (UTC+2) va corespunde timestamp-ului <code>1703201916</code>.
+
+</div></p>
+</p>
+
+<p>
+<p><div class="noteclassic">
+Fie următorul vector de timezone-uri: <code>[(“UTC”, 0); (“EET”, 2); (“PST”, -8)]</code>
+</p>
+
+<p>
+Exemple de rulare:
+</p>
+<pre class="code">21-12-2023 23:38:36 (UTC) =&gt; 1703201916
+22-12-2023 01:38:36 (EET) =&gt; 1703201916
+21-12-2023 15:38:36 (PST) =&gt; 1703201916</pre>
+
+<p>
+
+</div></p>
+</p>
+
+</div>
+
+<h4 id="task6_5p_-_printing_datetimes">Task6 (5p) - Printing DateTimes</h4>
+<div class="level4">
+
+<p>
+Implementați în fișierul <code>timelib.c</code> funcția:
+</p>
+<pre class="code">void printDateTimeTZ(TDateTimeTZ datetimetz)</pre>
+
+<p>
+Funcția afișează la stdout datetime-ul primit, în următorul format: <code>[data] [luna (cuvânt)] [anul], [ora]:[minutul]:[secunda] [timezone name] (UTC[+/-][timezone utc hour diff])</code>
+</p>
+
+<p>
+<p><div class="noteclassic">
+Exemple de afișare:
+</p>
+<pre class="code">1 ianuarie 1970, 05:00:00 UTC (UTC+0)
+22 decembrie 2023, 01:38:36 EET (UTC+2)
+21 decembrie 2023, 15:38:36 PST (UTC-8)</pre>
+
+<p>
+
+</div></p>
+</p>
+
+</div>
+
+<h3 class="sectionedit9" id="partea_b_-_network_packing">Partea B - Network Packing</h3>
+<div class="level3">
+
+<p>
+<p><div class="noteclassic">
+Pentru partea B, toate datele se consideră în timezone UTC.
+
+</div></p>
+</p>
+
+</div>
+
+<h4 id="task7_10p_-_basic_network_packing">Task7 (10p) - Basic Network Packing</h4>
+<div class="level4">
+
+<p>
+Printr-o rețea de calculatoare se trimite un vector de obiecte de tip “dată” (zi, lună, an). Din motive de economisire a spațiului, aceste date sunt memorate pe biții unui unsigned int (presupunem unsigned int de 32 de biți), în următorul format:
+</p>
+<div class="table sectionedit10"><table class="inline">
+	<tr class="row0">
+		<th class="col0"> Biți nefolosiți </th><th class="col1"> Anul </th><th class="col2"> Luna </th><th class="col3"> Ziua </th>
+	</tr>
+	<tr class="row1">
+		<td class="col0"> 17 biți </td><td class="col1"> 6 biți </td><td class="col2"> 4 biți </td><td class="col3"> 5 biți </td>
+	</tr>
+</table></div>
+
+<p>
+Astfel, în cadrul unui unsigned int:
+</p>
+<ul>
+<li class="level1"><div class="li"> cei mai <strong>nesemnificativi</strong> 5 biți memorează ziua, sub forma unui număr între 1 (<code>00001</code>) și 31 (<code>11111</code>)</div>
+</li>
+<li class="level1"><div class="li"> următorii 4 biți memorează luna, sub forma unui număr între 1 (<code>0001</code>) și 12 (<code>1100</code>)</div>
+</li>
+<li class="level1"><div class="li"> următorii 6 biți memorează anul ca diferență față de 1970, sub forma unui număr între 0 (<code>000000</code>) ce reprezintă anul 1970, și 63 (<code>111111</code>) ce reprezintă anul 2033</div>
+</li>
+</ul>
+
+<p>
+Scrieți un program (în fișierul <code>bitpacking.c</code>) care citește:
+</p>
+<ul>
+<li class="level1"><div class="li"> numărul taskului (pentru acest task va fi 7)</div>
+</li>
+<li class="level1"><div class="li"> un număr natural N</div>
+</li>
+<li class="level1"><div class="li"> N numere de tip unsigned int ce reprezintă fiecare câte o dată memorată pe biți așa cum este definit mai sus.</div>
+</li>
+</ul>
+
+<p>
+Programul trebuie să afișeze la stdout datele citite, câte una pe linie, <strong>sortate în ordine cronologică</strong>, în formatul <code>[zi] [lună] [an]</code> (exemplu: <code>21 decembrie 2023</code>).
+</p>
+
+</div>
+
+<h4 id="task8_20p_-_complex_network_packing">Task8 (20p) - Complex Network Packing</h4>
+<div class="level4">
+
+<p>
+Modificați programul din fișierul <code>bitpacking.c</code> pentru a rezolva acest task atunci când se citește 8 pentru numărul taskului.
+</p>
+
+<p>
+O problemă majoră a packing-ului pe biți așa cum a fost definit la taskul 7 este că nu e foarte eficient. Deși sunt necesari doar 15 biți (6+4+5) pentru memorarea unei date, sunt folosiți cei 32 de biți ai unui unsigned int. Pentru a rezolva această problemă, vom împacheta datele la un loc folosind aceleași valori unsigned int. Astfel:
+</p>
+<ul>
+<li class="level1"><div class="li"> prima dată se va regăsi în cei 15 cei mai <strong>nesemnificativi</strong> biți (0-14) din primul unsigned int citit</div>
+</li>
+<li class="level1"><div class="li"> a doua dată se va regăsi în următorii 15 biți ai primului unsigned int (ziua în biții 15-19, luna în biții 20-23, anul în biții 24-29)</div>
+</li>
+<li class="level1"><div class="li"> a treia dată se va regăsi în ultimii 2 biți (cei mai <strong>semnificativi</strong>) ai primului unsigned int și primii 13 biți ai celui de-al doilea unsigned int (ziua în biții 30-31 ai primului int și biții 0-3 ai următorului int; luna în biții 4-7, iar anul în biții 8-13 ai celui de-al doilea int)</div>
+</li>
+<li class="level1"><div class="li"> și asa mai departe. </div>
+</li>
+</ul>
+
+<p>
+Pentru un plus de realism, dorim să simulăm și cazul în care pe rețea există perturbații care alterează datele transmise. Pentru asta, vom avea câte un bit de control (separat de împachetarea descrisă mai sus) pentru fiecare unsigned int citit. Acest bit de control va fi definit ca <code>B1%2</code>, unde <code>B1</code> reprezintă numărul de biți de 1 din unsigned int-ul respectiv.
+Spre exemplu:
+</p>
+<ul>
+<li class="level1"><div class="li"> pentru unsigned int-ul <code>00000000 00000000 00000000 00000000</code>, bitul de control va fi 0 (sunt 0x biți egali cu 1 în acest int)</div>
+</li>
+<li class="level1"><div class="li"> pentru unsigned int-ul <code>01010101 01010101 01010101 01010101</code>, bitul de control va fi 0 (sunt 16x biți egali cu 1 în acest int, iar 16 este număr par - <code>16%2 == 0</code>)</div>
+</li>
+<li class="level1"><div class="li"> pentru unsigned int-ul <code>01010101 01010101 01010101 01010111</code>, bitul de control va fi 1 (sunt 17x biți egali cu 1 în acest int, iar 17 este număr impar - <code>17%2 == 1</code>)</div>
+</li>
+</ul>
+
+<p>
+Biții de control vor fi și ei împachetați într-un șir de unsigned int-uri de control. Astfel:
+</p>
+<ul>
+<li class="level1"><div class="li"> cel mai nesemnificativ bit din primul unsigned int de control reprezintă bitul de control pentru primul unsigned int citit</div>
+</li>
+<li class="level1"><div class="li"> următorul bit din primul unsigned int de control reprezintă bitul de control pentru al doilea int citit</div>
+</li>
+<li class="level1"><div class="li"> etc.</div>
+</li>
+</ul>
+
+<p>
+Biții de control vor fi folosiți astfel:
+</p>
+<ol>
+<li class="level1"><div class="li"> pentru fiecare unsigned int de date citit, se numără biții egali cu 1 din acesta (<code>B1</code>) și se calculează <code>B1%2</code></div>
+</li>
+<li class="level1"><div class="li"> se compară această valoare calculată cu bitul de control citit de la stdin</div>
+</li>
+<li class="level1"><div class="li"> dacă cele două valori coincid, se consideră că acest unsigned int de date a fost recepționat corect de pe rețea</div>
+</li>
+<li class="level1"><div class="li"> dacă cele două valori nu coincid, se consideră că acest unsigned int a fost corrupted, prin urmare toate datele ai căror biți fac parte din acest unsigned int vor fi ignorate și nu vor fi afișate în outputul programului.</div>
+</li>
+</ol>
+
+<p>
+<a href="https://ocw.cs.pub.ro/courses/_detail/programare/teme_2023/pclp-complex-network-packing.png?id=programare%3Ateme_2023%3Atema2_2023_cbd" class="media" title="programare:teme_2023:pclp-complex-network-packing.png"><img src="https://ocw.cs.pub.ro/courses/_media/programare/teme_2023/pclp-complex-network-packing.png?w=800&amp;tok=e30bfd" class="media" alt="" width="800" /></a>
+</p>
+
+<p>
+Modificați programul de la task 7 (în fișierul <code>bitpacking.c</code>) astfel încât, atunci când numărul taskului citit este 8, să ruleze cu următoarele modificări:
+</p>
+<ul>
+<li class="level1"><div class="li"> citește un număr natural N, ca mai devreme, ce reprezintă numărul de date (atenție - numărul de date, nu de int-uri) care trebuie citite</div>
+</li>
+<li class="level1"><div class="li"> citește un șir de unsigned int-uri ce conțin aceste date împachetate după descrierea de mai sus, până se citesc toate cele N date</div>
+</li>
+<li class="level1"><div class="li"> citește un șir de unsigned int-uri de control până se află valoarea bitului de control pentru toate unsigned int-urile de date citite</div>
+</li>
+</ul>
+
+<p>
+Programul trebuie să afișeze la stdout datele citite <strong>(dar numai cele ai căror biți sunt în totalitate numai în unsigned int-uri care nu sunt corupte)</strong>, câte una pe linie, sortate în ordine cronologică, în același format ca la taskul 7.
+</p>
+
+</div>
+
+<h3 class="sectionedit11" id="partea_c_-_google_calendar">Partea C - Google Calendar</h3>
+<div class="level3">
+
+</div>
+
+<h4 id="task9_35p_-_multi-timezone_event_planner">Task9 (35p) - Multi-timezone event planner</h4>
+<div class="level4">
+
+<p>
+Ne propunem să creăm un sistem de management de evenimente care găsește automat un interval de timp în care persoanele ce trebuie să participe la eveniment sunt libere.
+</p>
+
+<p>
+Scrieți un program (în fișierul <code>planner.c</code>) care:
+</p>
+<ul>
+<li class="level1"><div class="li"> citește un număr T ce reprezintă numărul de timezone-uri din program</div>
+</li>
+<li class="level1"><div class="li"> citește fiecare timezone, câte unul pe linie:</div>
+<ul>
+<li class="level2"><div class="li"> numele timezone-ului (un string de maxim 4 caractere), și diferența în ore față de UTC</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> citește un număr P ce reprezintă numărul de persoane</div>
+</li>
+<li class="level1"><div class="li"> pentru fiecare persoană, citește următoarele:</div>
+<ul>
+<li class="level2"><div class="li"> numele persoanei (un cuvânt de maxim 10 caractere)</div>
+</li>
+<li class="level2"><div class="li"> numele timezone-ului în care această persoană locuiește</div>
+</li>
+<li class="level2"><div class="li"> un număr K ce reprezintă numărul de intervale în care această persoană este liberă</div>
+</li>
+<li class="level2"><div class="li"> citește fiecare interval, dat de următoarele informații:</div>
+<ul>
+<li class="level3"><div class="li"> anul, luna, ziua, ora când intervalul liber începe (datele sunt considerate în timezone-ul persoanei careia îi aparțin)</div>
+</li>
+<li class="level3"><div class="li"> durata intervalului liber în număr de ore</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> citește parametrii evenimentului:</div>
+<ul>
+<li class="level2"><div class="li"> un număr întreg F (F mai mic sau egal cu P) ce reprezintă numărul minim de persoane care trebuie să participe la eveniment</div>
+</li>
+<li class="level2"><div class="li"> durata evenimentului în număr de ore</div>
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+Programul trebuie să găsească <strong>primul</strong> interval temporal în care evenimentul se poate organiza astfel încât minim F persoane să fie disponibile pe întreaga durată a evenimentului. Dacă nu există niciun interval în care să se poată organiza evenimentul, programul trebuie să afișeze “imposibil”. Dacă se găsește un interval în care evenimentul se poate ține, atunci programul trebuie să afișeze P linii (câte una pentru fiecare dintre cele P persoane, sortate alfabetic după nume), cu următorul conținut:
+</p>
+<ul>
+<li class="level1"><div class="li"> dacă persoana respectivă poate ajunge la eveniment, se afișează <code>[nume]: [data]</code> (data fiind reprezentată sub forma an, lună, zi, oră, minut, secundă, timezone - în același format ca la taskul 6) evenimentului, în timezone-ul acestei persoane</div>
+</li>
+<li class="level1"><div class="li"> dacă persoana respectivă nu va fi disponibilă pentru eveniment, se afișează “invalid”</div>
+</li>
+</ul>
+
+<p>
+<p><div class="noteclassic">
+Exemplu de rulare:
+</p>
+<pre class="code">1
+UTC 0
+
+3
+
+Alin UTC 1
+2023 12 20 12 5
+
+Vlad UTC 3
+2023 12 20 12 1
+2023 12 20 14 2
+2023 12 20 16 1
+
+Traian UTC 1
+2023 12 20 12 1
+
+2 3</pre>
+
+<p>
+Pentru inputul de mai sus, outputul trebuie să fie:
+</p>
+<pre class="code">Alin: 20 decembrie 2023, 14:00:00 UTC (UTC+0)
+Traian: invalid
+Vlad: 20 decembrie 2023, 14:00:00 UTC (UTC+0)</pre>
+
+<p>
+Explicație:
+</p>
+<ul>
+<li class="level1"><div class="li"> Avem un singur timezone, și anume UTC (UTC+0)</div>
+</li>
+<li class="level1"><div class="li"> Avem 3 persoane: Alin, Vlad, Traian (toate în același timezone)</div>
+<ul>
+<li class="level2"><div class="li"> Toate intervalele persoanelor sunt în acest caz în aceeași zi (20 decembrie 2023)</div>
+</li>
+<li class="level2"><div class="li"> Alin este liber între orele 12-17</div>
+</li>
+<li class="level2"><div class="li"> Vlad este liber între orele 12-13, 14-17 (14-16 și 16-17 sunt două intervale lipite)</div>
+</li>
+<li class="level2"><div class="li"> Traian este liber între orele 12-13</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> Evenimentul necesită cel puțin 2 persoane libere și durează 3 ore</div>
+</li>
+<li class="level1"><div class="li"> Singurul interval în care se poate organiza este 14-17 (participă Alin și Vlad)</div>
+</li>
+<li class="level1"><div class="li"> Persoanele sunt afișate în ordine alfabetică</div>
+</li>
+</ul>
+
+<p>
+Încă un exemplu de input pentru care rezultatul va fi același, dar de data asta persoanele se află în timezone-uri diferite:
+</p>
+<pre class="code">3
+UTC 0
+EET 2
+PST -8
+
+3
+
+Alin UTC 1
+2023 12 20 12 5
+
+Vlad EET 3
+2023 12 20 14 1
+2023 12 20 16 2
+2023 12 20 18 1
+
+Traian PST 1
+2023 12 20 4 1
+
+2 3</pre>
+
+<p>
+
+</div></p>
+</p>
+
+<p>
+<p><div class="noteclassic">
+</p>
+<ul>
+<li class="level1"><div class="li"> Anul va fi dat sub forma unui număr între 1970-2050</div>
+</li>
+<li class="level1"><div class="li"> Luna va fi un număr între 1-12</div>
+</li>
+<li class="level1"><div class="li"> Ziua va fi un număr între 1-31</div>
+</li>
+<li class="level1"><div class="li"> Ora va fi un număr între 0-23</div>
+</li>
+<li class="level1"><div class="li"> Se consideră că toate intervalele încep la ore fixe (minutul și secunda se consideră 00:00)</div>
+</li>
+</ul>
+
+<p>
+
+</div></p>
+</p>
+
+<p>
+<p><div class="noteimportant">
+Toate datele citite sunt considerate în timezone-ul perosoanei căreia îi aparțin. Spre exemplu, dacă persoana A (UTC+2) este libera pe 20 decembrie 2023 începând cu ora 14 timp de 1 ora, iar persoana B (UTC+1) este liberă pe 20 decembrie 2023 începând cu ora 13 timp de 1 ora, cele două persoane sunt de fapt libere în același timp (deoarece ora 13 UTC+1 este ora 14 UTC+2). Hint: cele două date se vor converti la același Unix Timestamp.
+
+</div></p>
+</p>
+
+<p>
+<p><div class="noteclassic">
+Hint: folosiți funcțiile definite la partea A.
+
+</div></p>
+</p>
+
+</div>
+
+<h4 id="task10_5p_-_clean_valgrind">Task10 (5p) - Clean Valgrind</h4>
+<div class="level4">
+
+<p>
+Pentru acest task, trebuie să aveți punctajul maxim pe taskul 9 și să nu aveți memory leaks la verificarea folosind utilitarul <a href="https://stackoverflow.com/questions/5134891/how-do-i-use-valgrind-to-find-memory-leaks" class="urlextern" title="https://stackoverflow.com/questions/5134891/how-do-i-use-valgrind-to-find-memory-leaks"  rel="nofollow">valgrind</a> pe acesta.
+</p>
+
+<p>
+Utilitarul se va rula folosind urmatoarea comanda:
+</p>
+<pre class="code"> valgrind --tool=memcheck --leak-check=full --error-exitcode=1 ./planner </pre>
+
+</div>
+
+<h3 class="sectionedit12" id="coding_style">Coding Style</h3>
+<div class="level3">
+
+<p>
+La fel ca la temele precedente, există o depunctare de până la -20p pentru coding style. Checkerul verifică coding style-ul în mod automat.
+</p>
+
+</div>
+
+<h3 class="sectionedit13" id="validare_locala_tema">Validare locală temă</h3>
+<div class="level3">
+
+<p>
+<strong>Checker: <a href="https://ocw.cs.pub.ro/courses/_media/programare/teme_2023/t2_checker.zip" class="media mediafile mf_zip" title="programare:teme_2023:t2_checker.zip (74.2 KB)">t2_checker.zip</a></strong>
+</p>
+
+</div>
+
+<h3 class="sectionedit14" id="trimitere_tema">Trimitere temă</h3>
+<div class="level3">
+
+<p>
+Tema va fi trimisă folosind Moodle, cursul <strong>Programarea Calculatoarelor (CB &amp; CD)</strong>, activitatea “Tema 2”.
+</p>
+
+<p>
+<p><div class="notewarning">
+Se va posta un anunț pe forum si Teams când se va deschide upload-ul.
+
+</div></p>
+</p>
+
+<p>
+Toate temele sunt testate în mod automat pe Moodle.
+</p>
+
+<p>
+Arhiva temei se va încărca folosind formularul de submisie (butonul <strong>Add submission</strong>.
+</p>
+
+<p>
+Rezultatele vor fi disponibile în secțiunea <strong>Feedback</strong> - nota apare la linia <strong>Grade</strong>, iar outputul checkerului și erorile apar la sectiunea <strong>Feedback comments</strong>. Dacă apare un buton albastru în formă de plus, trebuie să dați click pe el pentru a afișa întregul output al checkerului.<br/>
+
+<strong>Citiți cu atenție</strong> informațiile afișate în <strong>Feedback</strong> pentru a vă asigura că tema a fost rulată cu succes; o eroare comună este dată de faptul că conținutul arhivei nu respectă structura dorită (ex. fișierele sunt într-un alt director).<br/>
+
+</p>
+
+<p>
+<strong>Punctajul final al temei</strong> este afișat la linia <strong>Grade</strong> și la finalul outputului din checker.
+</p>
+
+<p>
+Conținutul arhivei trebuie să fie următorul:
+</p>
+<ol>
+<li class="level1"><div class="li"> Fișierele <strong>timelib.c</strong>, <strong>timelib.h</strong></div>
+</li>
+<li class="level1"><div class="li"> Fișierul <strong>bitpacking.c</strong></div>
+</li>
+<li class="level1"><div class="li"> Fișierul <strong>planner.c</strong></div>
+</li>
+<li class="level1"><div class="li"> Fișierul <strong>Makefile</strong></div>
+</li>
+<li class="level1"><div class="li"> Un fișier <a href="https://en.wikipedia.org/wiki/README" class="urlextern" title="https://en.wikipedia.org/wiki/README"  rel="nofollow">README</a> în care descrieți rezolvarea temei.</div>
+</li>
+</ol>
+
+<p>
+<p><div class="notewarning">
+Arhiva trebuie să fie de tipul <strong>zip</strong>.
+
+</div></p>
+</p>
+
+<p>
+<p><div class="notewarning">
+Nu includeti fisierele checkerului in arhiva voastra.
+
+</div></p>
+</p>
+
+<p>
+<p><div class="notewarning">
+In cazul in care testele va trec local, insa pica pe vmchecker cel mai probabil aveti
+o sursa de “undefined behavior in cod”. Pentru a va asigura ca scapati de aceste probleme,
+compilati cu flagul de compilare `-Wall` si rezolvati toate warning-urile.
+
+</div></p>
+</p>
+
+</div>
+
+<h4 id="lista_depunctari">Listă depunctări</h4>
+<div class="level4">
+
+<p>
+Lista nu este exhaustivă.
+</p>
+<ul>
+<li class="level1"><div class="li"> O temă care nu compilează și nu a rulat pe <strong>vmchecker</strong> nu va fi luată în considerare</div>
+</li>
+<li class="level1"><div class="li"> O temă care nu rezolvă cerința și trece testele prin alte mijloace nu va fi luată în considerare</div>
+</li>
+<li class="level1"><div class="li"> <strong>NU acceptăm teme copiate</strong>. În cazul unei teme copiate se scade punctajul aferent temei din punctajul total. </div>
+</li>
+<li class="level1"><div class="li"> [-20.0]: Nerezolvarea tuturor erorilor și warningurilor de coding style </div>
+</li>
+</ul>
+
+</div>
+
+        </div>
+</div></div></body></html>
